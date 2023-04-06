@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Page</title>
+    <script defer src="{{url_for('static', filename='script.js')}}"></script>
+  </head>
+  <body>
+    <div>
+      <h3>Hello, {{student}}</h3>
+      <h2>{{ class_already_added }}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Instructor</th>
+            <th>Name</th>
+            <th>Times</th>
+            <th>Current Students</th>
+            <th>Capacity</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for class in classes %}
+          <tr>
+            <td>{{ class.id }}</td>
+            <td>{{ class.instructor }}</td>
+            <td>{{ class.class_name }}</td>
+            <td>{{ class.class_times }}</td>
+            <td>{{ class.cur_students }}</td>
+            <td>{{ class.cap }}</td>
+            <td>
+              <button class="add-class-btn btn">Add Class</button>
+            </td>
+            <td>
+              <button class="remove-class-btn btn">Remove Class</button>
+            </td>
+          </tr>
+          {% endfor %} {% for class in added_classes %}
+          <tr>
+            <td>{{ class.id }}</td>
+            <td>{{ class.instructor }}</td>
+            <td>{{ class.class_name }}</td>
+            <td>{{ class.class_times }}</td>
+            <td>{{ class.cur_students }}</td>
+            <td>{{ class.cap }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <form action="/logout">
+        <input type="submit" value="Logout" />
+      </form>
+    </div>
+  </body>
+</html>
