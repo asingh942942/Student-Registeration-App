@@ -3,6 +3,8 @@
 const addClass = document.querySelectorAll(".add-class-btn");
 const removeClass = document.querySelectorAll(".remove-class-btn");
 const checkClass = document.querySelectorAll(".check-class-btn");
+const editGrades = document.querySelector(".edit-student-grades-form");
+const classId = document.querySelectorAll(".class-id");
 
 function AddClass() {
   fetch("/index", {
@@ -59,7 +61,9 @@ removeClass.forEach((button, index) => {
   button.addEventListener("click", RemoveClass);
 });
 
-checkClass.forEach((button, index) => {
-  button.setAttribute("data-id", index + 1);
-  button.addEventListener("click", CheckClass);
+classId.forEach((course, index) => {
+  checkClass[index].setAttribute("data-id", course.textContent);
+  checkClass[index].addEventListener("click", CheckClass);
 });
+
+editGrades.setAttribute("action", window.location.pathname);

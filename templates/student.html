@@ -5,13 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
     <script defer src="{{url_for('static', filename='script.js')}}"></script>
   </head>
-  <body>
-    <div>
-      <h3>Hello, {{student}}</h3>
-      <h2>{{ class_already_added }}</h2>
+  <body class="student-body">
+    <div class="top-header">
+      <h3 class="student-name">Hello, {{student}}</h3>
+      <form action="/logout">
+        <input type="submit" value="Logout" />
+      </form>
+    </div>
+    <div class="table-view">
       <table>
+        <h4 class="table-heading">Available Courses</h4>
         <thead>
           <tr>
             <th>Id</th>
@@ -39,7 +45,23 @@
               <button class="remove-class-btn btn">Remove Class</button>
             </td>
           </tr>
-          {% endfor %} {% for class in added_classes %}
+          {% endfor %}
+        </tbody>
+      </table>
+      <table>
+        <h4 class="table-heading">Added Courses</h4>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Instructor</th>
+            <th>Name</th>
+            <th>Times</th>
+            <th>Current Students</th>
+            <th>Capacity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for class in added_classes %}
           <tr>
             <td>{{ class.id }}</td>
             <td>{{ class.instructor }}</td>
@@ -51,9 +73,6 @@
           {% endfor %}
         </tbody>
       </table>
-      <form action="/logout">
-        <input type="submit" value="Logout" />
-      </form>
     </div>
   </body>
 </html>

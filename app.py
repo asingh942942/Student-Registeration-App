@@ -43,18 +43,14 @@ class Student(db.Model):
   courses = db.relationship('Classes', secondary='class_student', backref='student')
 
 class Grades(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
   grade = db.Column(db.Integer, unique=False, nullable=True)
-  student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
+  student_id = db.Column(db.Integer, db.ForeignKey('student.id'), primary_key=True)
   class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
   grades_student = db.relationship('Student', backref='student')
   grades_classes = db.relationship('Classes', backref='class')
 
 class PkView(ModelView):
   column_display_pk = True
-  #column_hide_backrefs = False
-  #column_display_all_relations = True
-  #column_list = ("id", "grade", "user_id")
 
 admin = Admin(app, name='Admin', template_mode='bootstrap3')
 admin.add_view(PkView(User, db.session))
@@ -73,38 +69,6 @@ def check_for_admin():
 
 @app.before_first_request
 def initialize():
-  #cse106 = Classes(instructor="Ammon Hepworth", class_name="CSE 106", class_times="TH 5:00 - 7:20 PM", cur_students=0, cap=10)
-  #db.session.add(cse106)
-  #db.session.commit()
-  #student_name = User.query.filter_by(name="John Bae").first().name
-  #johnbaestudent = Student(name=student_name, user_id=2)
-  #johnbaestudent = Student.query.filter_by(name="John Bae").first()
-  #johnbaestudent.user_id = 2
-  #db.session.add(johnbaestudent)
-  #db.session.commit()
-
-  #johnbaestudent = Student.query.filter_by(name="John Bae").first()
-  #cse106 = Classes.query.filter_by(class_name="CSE 106").first()
-  #johnbaestudent.courses.append(cse106)
-  #db.session.commit()
-
-  #student = User.query.filter_by(name="donna summer").first()
-  #donnasummerstudent = Student(name=student.name, user_id=student.id)
-  #db.session.add(donnasummerstudent)
-  #db.session.commit()
-
-  # selecting student and class
-  #donnasummer = Student.query.filter_by(name="Donna Summer").first()
-  #cse120 = Classes.query.filter_by(class_name="CSE 120").first()
-
-  # adding an element to the association table
-  #donnasummer.courses.append(cse120)
-  #db.session.commit()
-
-  # removing an element from the association table
-  #donnasummer.courses.remove(cse120)
-  #db.session.commit()
-
   db.create_all()
 
 @login_manager.user_loader
@@ -114,7 +78,7 @@ def load_user(user_id):
 @app.route('/index', methods=["GET", "POST"])
 @app.route('/')
 @login_required
-def index(): # put application's code here
+def index():
   if(current_user.role == "student"):
     if request.method == "POST":
       buttonid = request.get_json().get("dataset")
@@ -131,10 +95,7 @@ def index(): # put application's code here
         course.cur_students -= 1
         current_student.courses.remove(course)
     db.session.commit()
-      #return json.dumps(Student.query.filter_by(user_id=current_student.user_id).first().courses[int(buttonid)-1].class_name)
-      #return json.dumps(course.class_name)
     return render_template("student.html", student=current_user.name, classes=Classes.query.all(), added_classes=Student.query.filter_by(user_id=current_user.id).first().courses)
-    #return render_template("student.html", student=current_user.name, classes=Classes.query.all())
   elif(current_user.role == "teacher"):
     if request.method == "POST":
       buttonid = request.get_json().get("dataset")
@@ -145,28 +106,24 @@ def index(): # put application's code here
     return redirect("/admin")
 @app.route('/login')
 def login_page():
-  #return json.dumps(Student.query.filter_by(name="John Bae").first().user_id)
-
-  # filtering the name of a student given their user_id in the Student model
-  #return json.dumps(Student.query.filter_by(user_id=3).first().user.name)
-
-  # filtering the class_name of a student given their user_id IF uselist=False on courses
-  #return json.dumps(Student.query.filter_by(user_id=2).first().courses.class_name)
-
-  # filter the class_name of a student given their user_id through courses list IF uselist=True on courses
-  #return json.dumps(Student.query.filter_by(user_id=3).first().courses[0].class_name)
   return render_template('login.html')
 
-@app.route('/students/<id>')
+@app.route('/students/<id>', methods=['GET', 'POST'])
 def students(id):
+  if request.method == "POST":
+    student = Student.query.filter_by(name=request.form.get("student-name")).first()
+    get_grade = request.form.get("student-grade")
+    # if student already exists, update their grade
+    if Grades.query.filter_by(student_id=student.id).first():
+      Grades.query.filter_by(student_id=student.id).first().grade = get_grade
+      db.session.commit()
+      return render_template("enrolled_students.html", enrolled_students = Classes.query.filter_by(id=id).first().students, grades = Grades.query.filter_by(class_id=id).all())
+    
+    # adds student, class, and corresponding grade if it does not exist
+    add_grade = Grades(grade=get_grade, student_id=student.id, class_id=id)
+    db.session.add(add_grade)
+    db.session.commit()
   return render_template("enrolled_students.html", enrolled_students = Classes.query.filter_by(id=id).first().students, grades = Grades.query.filter_by(class_id=id).all())
-#   student = Student.query.filter_by(name="John Bae").first()
-#   cse106 = Classes.query.filter_by(class_name="CSE 106").first()
-#   grade = Grades(grade=92.5, student_id=student.id, class_id=cse106.id)
-#   db.session.add(grade)
-#   db.session.commit()
-#   return json.dumps(Grades.query.filter_by(student_id=student.id).first().grade)
-
 
 @app.route('/login', methods=['POST'])
 def login():

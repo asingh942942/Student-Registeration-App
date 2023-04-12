@@ -5,18 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <!-- <script defer src="{{url_for('static', filename='script.js')}}"></script> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
   </head>
-  <body>
-    <form action="/login" method="post">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" />
-      <label for="password">Password</label>
-      <input type="text" name="password" id="password" />
-      <input type="submit" value="Login" />
-    </form>
-    <form action="/signup">
-      <input type="submit" value="Signup" />
-    </form>
+  <body class="login-body">
+    <div class="login-form">
+      <h3 class="form-heading">Login Form</h3>
+      <form action="/login" method="post">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+        <input type="submit" value="Login" />
+      </form>
+      <div class="divider">or</div>
+      <form action="/signup">
+        <input type="submit" value="Signup" />
+      </form>
+    </div>
   </body>
 </html>

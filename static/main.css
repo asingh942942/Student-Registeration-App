@@ -1,0 +1,227 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.btn {
+  all: unset;
+  padding: 8px 10px;
+  background-color: #2d7dd2;
+  color: white;
+  margin: 8px;
+  text-align: center;
+  border-radius: 25px;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+/* Login Form */
+
+.login-body,
+.signup-body {
+  background: linear-gradient(
+    145deg,
+    rgba(27, 191, 197, 0.95),
+    rgb(30, 221, 177)
+  );
+  height: 100vh;
+}
+
+input[type="submit"] {
+  all: unset;
+  padding: 8px 10px;
+  background-color: #2d7dd2;
+  color: white;
+  margin: 8px;
+  text-align: center;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #3b28cc;
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 8px 6px;
+  border: 0.5px solid lightgray;
+  color: gray;
+  border-radius: 25px;
+  margin: 8px;
+  text-align: center;
+  font-size: 1rem;
+  transition: border-radius 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-radius: 10px;
+}
+
+.form-heading {
+  text-align: center;
+  margin: 0 0 10px 0;
+  color: rgb(57, 57, 57);
+}
+
+.login-form,
+.signup-form {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  /* box-shadow: 2px 2px 10px lightgray; */
+  border-radius: 8px;
+}
+
+.divider {
+  color: gray;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+}
+
+/* Student and Instructor Pages */
+
+.table-view {
+  display: flex;
+  flex-flow: column;
+}
+
+table {
+  justify-self: center;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 2px 2px 20px lightgray;
+  margin: 0 20px 0 20px;
+  padding: 20px;
+}
+
+th {
+  background-color: #daedfb;
+  padding: 10px;
+}
+
+td {
+  text-align: center;
+  color: rgb(92, 92, 92);
+  height: 50px;
+  margin: 10px;
+}
+
+/* Student View */
+
+.student-body {
+  background-color: rgb(248, 252, 255);
+}
+
+.student-name,
+.teacher-name {
+  font-weight: 900;
+  padding: 20px;
+  font-size: 1.25rem;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0.5px 8px rgb(233, 233, 233);
+}
+
+.table-heading {
+  margin: 20px;
+  font-size: 1.25rem;
+  font-weight: 900;
+  /* padding-bottom: 15px;
+  border-bottom: 0.5px solid lightgray; */
+}
+
+.add-class-btn {
+  background-color: #2667ff;
+  transition: background-color 0.3s;
+}
+
+.add-class-btn:hover {
+  background-color: #3b28cc;
+}
+
+.remove-class-btn {
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid #2589bd;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.remove-class-btn:hover {
+  background-color: #3b28cc;
+  color: #fff;
+}
+
+/* Teacher View */
+
+.check-class-btn {
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid #2589bd;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.check-class-btn:hover {
+  background-color: #3b28cc;
+  color: #fff;
+}
+
+/* Enrolled Students View */
+
+.edit-grades-view {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.student-grades {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+
+.student-grades > tr > td {
+  text-align: left;
+}
+
+.grade {
+  border-left: 0.5px solid lightgray;
+  padding-left: 15px;
+}
+
+.student-grades-table {
+  margin: 20px;
+}
+
+.edit-grades-form {
+  display: inline-block;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 2px 2px 20px lightgray;
+  border-radius: 6px;
+}

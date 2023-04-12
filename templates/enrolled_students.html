@@ -5,25 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enrolled Students</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
+    <script defer src="{{url_for('static', filename='script.js')}}"></script>
   </head>
   <body>
-    <table>
-      <thead>
-        <tr>
-          <th>Student</th>
-          <th>Grade</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {% for student in enrolled_students %}
-        <tr>
-          <td>{{ student.name }}</td>
-          {% endfor %} {% for student in grades %}
-          <td>{{ student.grade }}</td>
+    <div class="edit-grades-view">
+      <table class="student-grades-table">
+        <thead>
+          <tr>
+            <th>Grades</th>
+          </tr>
+        </thead>
+        <tbody class="student-grades">
+          {% for student in enrolled_students %}
+          <tr>
+            <td>{{ student.name }}</td>
+          </tr>
           {% endfor %}
-        </tr>
-      </tbody>
-    </table>
+        </tbody>
+        <tbody class="student-grades">
+          {% for student in grades %}
+          <tr>
+            <td class="grade">{{ student.grade }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="edit-grades-form">
+        <form method="post" class="edit-student-grades-form">
+          <input type="text" placeholder="Student Name" name="student-name" />
+          <input type="text" placeholder="Grade" name="student-grade" />
+          <input type="submit" />
+        </form>
+      </div>
+    </div>
   </body>
 </html>

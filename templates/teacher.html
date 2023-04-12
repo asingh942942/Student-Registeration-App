@@ -5,39 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teacher Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" />
     <script defer src="{{url_for('static', filename='script.js')}}"></script>
   </head>
   <body>
     <div>
-      <h3>Hello, {{teacher}}</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Instructor</th>
-            <th>Name</th>
-            <th>Times</th>
-            <th><a href="/students">Current Students</a></th>
-            <th>Capacity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for class in added_classes %}
-          <tr>
-            <td>{{ class.id }}</td>
-            <td>{{ class.instructor }}</td>
-            <td>{{ class.class_name }}</td>
-            <td>{{ class.class_times }}</td>
-            <td>{{ class.cur_students }}</td>
-            <td>{{ class.cap }}</td>
-            <td><button class="check-class-btn btn">Check Class</button></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <form action="/logout">
-        <input type="submit" value="Logout" />
-      </form>
+      <div class="top-header">
+        <h3 class="teacher-name">Hello, {{teacher}}</h3>
+        <form action="/logout">
+          <input type="submit" value="Logout" />
+        </form>
+      </div>
+      <div class="table-view">
+        <table>
+          <h4 class="table-heading">Your Courses</h4>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Instructor</th>
+              <th>Name</th>
+              <th>Times</th>
+              <th>Current Students</th>
+              <th>Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for class in added_classes %}
+            <tr>
+              <td class="class-id">{{ class.id }}</td>
+              <td>{{ class.instructor }}</td>
+              <td>{{ class.class_name }}</td>
+              <td>{{ class.class_times }}</td>
+              <td>{{ class.cur_students }}</td>
+              <td>{{ class.cap }}</td>
+              <td><button class="check-class-btn btn">Check Class</button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>
